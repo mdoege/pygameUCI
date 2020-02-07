@@ -87,12 +87,17 @@ def put(fn, pos, highlight = False, cursor = False):
         if cursor:
                 draw = ImageDraw.Draw(im)
                 ccol = (0, 0, 255, 200)
+                lw = 7
                 if selected > -1:
                         index = 8 * cury + curx
-                        if index in target: ccol = (0, 255, 0, 200)
-                        else: ccol = (255, 0, 0, 200)
+                        if index in target:
+                                ccol = (0, 255, 0, 200)
+                                lw = 12
+                        else:
+                                ccol = (255, 0, 0, 200)
+                                lw = 25
                 if res == "*":
-                        draw.ellipse((0, 0, 99, 99), outline = ccol, width = 7)
+                        draw.ellipse((0, 0, 99, 99), outline = ccol, width = lw)
         blit(im, pos)
 
 def draw_square(b, i, highlight = False):
