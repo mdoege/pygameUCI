@@ -15,7 +15,7 @@ else:
         engine = chess.engine.SimpleEngine.popen_uci("/usr/bin/stockfish")
         limit = chess.engine.Limit(time = 1)    # calculate for one second
 
-hicolor = (100, 0, 100, 100)       # highlight color (RGBA)
+hicolor = (100, 0, 100, 255)       # highlight color (RGBA)
 curx, cury = 4, 1       # cursor initial position
 
 # Do not change these
@@ -152,6 +152,11 @@ def write_pgn():
         with open("game.pgn", 'w') as pgnfile:
                 pgnfile.write(str(game) + '\n\n\n')
 
+
+draw_board(b)
+draw_labels()
+
+# main loop
 while not done:
         for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -171,12 +176,15 @@ while not done:
                                                 target.append(m.to_square)
                                 if len(target) == 0:
                                         selected = -1
+                                else:
+                                        draw_square(b, selected)
                         # set down piece
                         if selected >= 0 and index in target:
                                 moves = b.legal_moves
                                 for m in moves:
                                         if m.from_square == selected and m.to_square == index:
                                                 b.push(m)
+                                                draw_board(b)
                                                 selected = -1
                                                 target = []
                                                 write_pgn()
@@ -188,6 +196,7 @@ while not done:
                 name = joystick.get_name()
 
                 axis = joystick.get_axis(0)     # left-right
+                oldx, oldy = curx, cury
                 if axis > lim:
                         curx += 1 * rot()
                 if axis < -lim:
@@ -199,9 +208,12 @@ while not done:
                         cury += 1 * rot()
                 curx = min(max(0, curx), 7)
                 cury = min(max(0, cury), 7)
+                if oldx != curx or oldy != cury:
+                        index = 8 * oldy + oldx
+                        draw_square(b, index)
+                        index = 8 * cury + curx
+                        draw_square(b, index)
 
-        draw_board(b)
-        draw_labels()
         pygame.display.flip()
 
         # computer move
@@ -211,10 +223,10 @@ while not done:
                 cmove = (mm.from_square, mm.to_square)
                 b.push(mm)
                 write_pgn()
-        draw_board(b)
-        draw_labels()
-        pygame.display.flip()
+                draw_board(b)
+                pygame.display.flip()
 
+        # check if game has concluded
         res = b.result()
         if res != "*":
                 if res == "1-0":
