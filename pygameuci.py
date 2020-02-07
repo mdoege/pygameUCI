@@ -27,6 +27,8 @@ screen = pygame.display.set_mode((1000, 1000))
 pygame.display.set_caption("pygameUCI")
 
 joystick_count = pygame.joystick.get_count()
+if joystick_count < 1:
+        print("*** No supported joysticks or gamepads found! ***")
 
 clock = pygame.time.Clock()
 pygame.joystick.init()
