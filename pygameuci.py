@@ -97,7 +97,7 @@ def put(fn, pos, highlight = False, cursor = False):
                                 ccol = (255, 0, 0, 200)
                                 lw = 25
                 if res == "*":
-                        draw.ellipse((0, 0, 99, 99), outline = ccol, width = lw)
+                        draw.ellipse((0, 0, 100, 100), outline = ccol, width = lw)
         blit(im, pos)
 
 def draw_square(b, i, highlight = False):
