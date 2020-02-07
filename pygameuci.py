@@ -70,7 +70,7 @@ def blit(im, pos):
         screen.blit(image, (pos[0] + 100, pos[1] + 100))
 
 def put(fn, pos, highlight = False, cursor = False):
-        "Display piece image with file name fn at position pos with offset xoff/yoff"
+        "Display piece image with file name fn at position pos"
         if fn:
                 im = Image.open(fn).convert("RGBA")
                 if highlight:
