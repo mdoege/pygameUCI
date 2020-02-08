@@ -209,7 +209,7 @@ while not done:
                         cury += 1 * rot()
                 curx = min(max(0, curx), 7)
                 cury = min(max(0, cury), 7)
-                if oldx != curx or oldy != cury and not game_end:
+                if (oldx != curx or oldy != cury) and not game_end:
                         index = 8 * oldy + oldx
                         draw_square(b, index)
                         index = 8 * cury + curx
