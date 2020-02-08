@@ -39,6 +39,7 @@ b = chess.Board()
 res = b.result()
 oldmove = ()
 result = None
+game_end = False
 
 # human plays Black?
 if "black" in sys.argv:
@@ -228,13 +229,20 @@ while not done:
 
         # check if game has concluded
         res = b.result()
-        if res != "*":
+        if res != "*" and not game_end:
+                game_end = True
                 if res == "1-0":
                         pygame.display.set_caption("pygameUCI -- White wins")
+                        im = Image.open("img/white.png").convert("RGBA")
+                        blit(im, (0, 300))
                 if res == "0-1":
                         pygame.display.set_caption("pygameUCI -- Black wins")
+                        im = Image.open("img/black.png").convert("RGBA")
+                        blit(im, (0, 300))
                 if res == "1/2-1/2":
                         pygame.display.set_caption("pygameUCI -- Draw")
+                        im = Image.open("img/draw.png").convert("RGBA")
+                        blit(im, (0, 300))
         clock.tick(5)   # limit frame rate to 5 FPS
 
 
