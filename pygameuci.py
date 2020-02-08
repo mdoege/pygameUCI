@@ -209,7 +209,7 @@ while not done:
                         cury += 1 * rot()
                 curx = min(max(0, curx), 7)
                 cury = min(max(0, cury), 7)
-                if oldx != curx or oldy != cury:
+                if oldx != curx or oldy != cury and not game_end:
                         index = 8 * oldy + oldx
                         draw_square(b, index)
                         index = 8 * cury + curx
@@ -231,18 +231,17 @@ while not done:
         res = b.result()
         if res != "*" and not game_end:
                 game_end = True
+                draw_board(b)
                 if res == "1-0":
                         pygame.display.set_caption("pygameUCI -- White wins")
                         im = Image.open("img/white.png").convert("RGBA")
-                        blit(im, (0, 300))
                 if res == "0-1":
                         pygame.display.set_caption("pygameUCI -- Black wins")
                         im = Image.open("img/black.png").convert("RGBA")
-                        blit(im, (0, 300))
                 if res == "1/2-1/2":
                         pygame.display.set_caption("pygameUCI -- Draw")
                         im = Image.open("img/draw.png").convert("RGBA")
-                        blit(im, (0, 300))
+                blit(im, (0, 300))
         clock.tick(5)   # limit frame rate to 5 FPS
 
 
