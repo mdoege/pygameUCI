@@ -16,6 +16,7 @@ else:
         limit = chess.engine.Limit(time = 1)    # calculate for one second
 
 hicolor = (100, 0, 100, 255)       # highlight color (RGBA)
+boardfn = "img/maple.png"          # board background image; needs to be 800x800       
 curx, cury = 4, 1       # cursor initial position
 
 # Do not change these
@@ -33,7 +34,7 @@ if joystick_count < 1:
 clock = pygame.time.Clock()
 pygame.joystick.init()
 
-ib = Image.open("img/maple.png").convert("RGBA")
+ib = Image.open(boardfn).convert("RGBA")
 
 b = chess.Board()
 res = b.result()
