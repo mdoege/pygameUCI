@@ -51,7 +51,7 @@ if "black" in sys.argv:
 else: player = True
 
 done = False
-lim = .8        # minimum joystick movement needed to register
+lim = .5        # minimum joystick movement needed to register
 selected = -1   # selected "from" square
 target = []     # possible "to" squares for move
 cmove = []      # computer move highlights
