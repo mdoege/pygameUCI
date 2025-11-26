@@ -1,8 +1,8 @@
 # pygameUCI, an UCI chess frontend for use with USB joysticks or gamepads
 
-![screenshot](https://github.com/mdoege/pygameUCI/raw/master/pygameuci.png "pygameUCI screenshot")
+![screenshot](pygameuci.png "pygameUCI screenshot")
 
-The default engine is ``/usr/bin/stockfish``, but other UCI engine binaries can also be used.
+The default engine is ``/usr/bin/stockfish``, but other UCI engine binaries can also be used. A path to an opening book is also set by default; leave BOOK empty to play without a book.
 
 ## Prerequisites
 

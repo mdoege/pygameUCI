@@ -4,7 +4,7 @@
 
 import pygame
 from PIL import Image, ImageDraw
-import chess, chess.engine, chess.pgn
+import chess, chess.engine, chess.pgn, chess.polyglot
 import sys
 
 # Open an UCI chess engine
@@ -15,6 +15,7 @@ else:
         engine = chess.engine.SimpleEngine.popen_uci("/usr/bin/stockfish")
         limit = chess.engine.Limit(time = 1)    # calculate for one second
 
+BOOK = "/usr/share/scid/books/merged.bin"       # path to Polyglot opening book
 hicolor = (100, 0, 100, 255)       # highlight color (RGBA)
 boardfn = "img/maple.png"          # board background image; needs to be 800x800       
 curx, cury = 4, 1       # cursor initial position
@@ -220,8 +221,16 @@ while not done:
 
         # computer move
         if b.turn != player and len(list(b.legal_moves)):
-                result = engine.play(b, limit)
-                mm = result.move
+                if BOOK != "":
+                        with chess.polyglot.open_reader(BOOK) as bk:
+                                try:
+                                        mv = bk.weighted_choice(b)
+                                        mm = mv.move
+                                except: mm = ""
+
+                if not BOOK or mm == "":
+                        result = engine.play(b, limit)
+                        mm = result.move
                 cmove = (mm.from_square, mm.to_square)
                 b.push(mm)
                 write_pgn()
